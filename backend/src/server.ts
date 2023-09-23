@@ -1,7 +1,10 @@
 import express, { Application, Response, Request } from 'express'
 
 import dotenv from 'dotenv'
-import connectDB from '../config/db'
+import connectDB from './config/db'
+
+import UserRoutes from './routes/UserRoutes'
+import { errorHandler, notFound } from './middlewares/ErrorMiddleware'
 
 const app: Application = express()
 
@@ -18,5 +21,10 @@ app.get('/', (req: Request, res: Response) => {
         message: "Bem vindo"
     })
 })
+
+app.use("/users", UserRoutes)
+
+app.use(notFound);
+app.use(errorHandler)
 
 app.listen(PORT, (): void => console.log(`Server is running on ${PORT}`))
