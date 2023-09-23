@@ -1,10 +1,13 @@
 import express, { Application } from 'express'
 
 import dotenv from 'dotenv'
+import connectDB from '../config/db'
 
 const app: Application = express()
 
 dotenv.config()
+
+connectDB();
 
 app.use(express.json())
 
