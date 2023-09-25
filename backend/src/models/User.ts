@@ -15,15 +15,26 @@ const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true,
+        lowercase: true,
+        validate: {
+            validator: function (value: string) {
+                return /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(value);
+            },
+            message: "O email inserido não é válido"
+        }
     },
     fullName: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        maxlength: 100
     },
     password: {
         type: String,
         required: true,
+        minlength: 6,
     }
 }, {
     timestamps: true
